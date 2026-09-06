@@ -1,0 +1,48 @@
+:root {
+  color: #1f2937;
+  background: #f4f1ea;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+}
+
+h1 {
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+}
+
+.hint {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+pre {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  overflow-x: auto;
+}

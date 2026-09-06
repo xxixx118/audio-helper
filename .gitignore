@@ -1,0 +1,36 @@
+# 密钥与本地环境
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# 运行时临时数据（保留目录占位）
+backend/storage/audio/*
+backend/storage/searches/*
+backend/storage/tts/*
+!backend/storage/audio/.gitkeep
+!backend/storage/searches/.gitkeep
+!backend/storage/tts/.gitkeep
+
+# 系统与编辑器
+.DS_Store
+*.log
+.idea/
+.vscode/
