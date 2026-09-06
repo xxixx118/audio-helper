@@ -1,4 +1,8 @@
+from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+BACKEND_DIR = Path(__file__).resolve().parent
 
 
 class Settings(BaseSettings):
@@ -11,6 +15,9 @@ class Settings(BaseSettings):
     backend_host: str = "0.0.0.0"
     backend_port: int = 8003
     cors_allow_origins: list[str] = ["http://localhost:5175"]
+    audio_storage_dir: Path = BACKEND_DIR / "storage" / "audio"
+    audio_ttl_hours: int = 24
+    max_audio_bytes: int = 5 * 1024 * 1024
 
     bailian_api_key: str = ""
     bailian_workspace_id: str = ""

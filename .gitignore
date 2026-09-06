@@ -29,6 +29,10 @@ backend/storage/tts/*
 !backend/storage/searches/.gitkeep
 !backend/storage/tts/.gitkeep
 
+# 本地录音与误放在仓库根目录的音频
+*.webm
+*.wav
+
 # 系统与编辑器
 .DS_Store
 *.log

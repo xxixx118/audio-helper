@@ -19,24 +19,97 @@ h1 {
   font-size: 1.75rem;
 }
 
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
 .hint {
   color: #6b7280;
   font-size: 0.9rem;
 }
 
-button {
+.error {
+  color: #b42318;
+  font-size: 0.95rem;
+}
+
+.city-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.city-select input {
+  max-width: 16rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.45rem;
+  font-size: 1rem;
+}
+
+.record-button {
+  min-width: 10rem;
+  margin-top: 0.25rem;
+  padding: 0.85rem 1.4rem;
+  border: none;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 1.05rem;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+
+.record-button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.record-button.is-recording {
+  background: #b42318;
+}
+
+.record-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.recording-result {
+  margin-top: 1.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.recording-result audio {
+  width: 100%;
+}
+
+.download-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: #1d4ed8;
+}
+
+.health-block {
+  margin-top: 2.5rem;
+}
+
+.secondary-button {
   margin-top: 0.5rem;
   padding: 0.55rem 1rem;
   border: none;
   border-radius: 0.5rem;
-  background: #2563eb;
+  background: #4b5563;
   color: #fff;
   font-size: 0.95rem;
   cursor: pointer;
 }
 
-button:hover {
-  background: #1d4ed8;
+.secondary-button:hover {
+  background: #374151;
 }
 
 pre {
