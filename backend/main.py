@@ -5,6 +5,8 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from api.asr import router as asr_router
+from api.extract import router as extract_router
 from api.health import router as health_router
 from api.upload import router as upload_router
 from config import settings
@@ -46,8 +48,18 @@ async def handle_validation_error(
     request: Request,
     exc: RequestValidationError,
 ) -> JSONResponse:
-    stage = "upload" if request.url.path == "/upload" else "request"
-    message = "请先录一段语音再提交。" if stage == "upload" else "请求参数不完整，请重新提交。"
+    if request.url.path == "/upload":
+        stage = "upload"
+        message = "请先录一段语音再提交。"
+    elif request.url.path == "/asr":
+        stage = "asr"
+        message = "请求参数不完整，请重新提交。"
+    elif request.url.path == "/extract":
+        stage = "extract"
+        message = "请求参数不完整，请重新提交。"
+    else:
+        stage = "request"
+        message = "请求参数不完整，请重新提交。"
     return JSONResponse(
         status_code=422,
         content=error_body(_request_id(request), "INVALID_REQUEST", message, stage),
@@ -56,3 +68,5 @@ async def handle_validation_error(
 
 app.include_router(health_router)
 app.include_router(upload_router)
+app.include_router(asr_router)
+app.include_router(extract_router)
