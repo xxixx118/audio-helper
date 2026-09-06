@@ -1,9 +1,13 @@
 import json
+import re
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from config import settings
+from errors import AppError
+
+AUDIO_ID_PATTERN = re.compile(r"^rec_[0-9a-f]{32}$")
 
 
 def utc_now() -> datetime:
@@ -61,3 +65,47 @@ def delete_audio(audio_id: str) -> None:
     for path in (audio_file_path(audio_id), audio_meta_path(audio_id)):
         if path.exists():
             path.unlink()
+
+
+def _raise_audio_not_found(stage: str) -> None:
+    raise AppError(
+        404,
+        "AUDIO_NOT_FOUND",
+        "录音已过期或不存在，请重新录音。",
+        stage,
+    )
+
+
+def load_audio_record(audio_id: str, *, stage: str = "asr") -> dict:
+    if not AUDIO_ID_PATTERN.fullmatch(audio_id or ""):
+        _raise_audio_not_found(stage)
+
+    meta_path = audio_meta_path(audio_id)
+    file_path = audio_file_path(audio_id)
+    if not meta_path.exists() or not file_path.exists():
+        _raise_audio_not_found(stage)
+
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        created_at = datetime.fromisoformat(str(meta["created_at"]))
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+        _raise_audio_not_found(stage)
+
+    if created_at.tzinfo is None:
+        created_at = created_at.replace(tzinfo=timezone.utc)
+
+    ttl = timedelta(hours=settings.audio_ttl_hours)
+    if utc_now() - created_at > ttl:
+        _raise_audio_not_found(stage)
+
+    content = file_path.read_bytes()
+    if not content:
+        _raise_audio_not_found(stage)
+
+    return {
+        "audio_id": audio_id,
+        "content": content,
+        "mime_type": str(meta.get("mime_type") or "audio/webm"),
+        "created_at": created_at,
+        "meta": meta,
+    }

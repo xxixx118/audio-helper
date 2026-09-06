@@ -18,6 +18,9 @@ class Settings(BaseSettings):
     audio_storage_dir: Path = BACKEND_DIR / "storage" / "audio"
     audio_ttl_hours: int = 24
     max_audio_bytes: int = 5 * 1024 * 1024
+    max_asr_base64_bytes: int = 10 * 1024 * 1024
+    asr_timeout_seconds: float = 20.0
+    asr_connect_timeout_seconds: float = 3.0
 
     bailian_api_key: str = ""
     bailian_workspace_id: str = ""
@@ -35,6 +38,9 @@ class Settings(BaseSettings):
     deepseek_api_key: str = ""
     deepseek_base_url: str = "https://api.deepseek.com"
     deepseek_model: str = "deepseek-v4-flash"
+    extract_timeout_seconds: float = 15.0
+    extract_connect_timeout_seconds: float = 3.0
+    extract_max_tokens: int = 1024
 
     amap_api_key: str = ""
     amap_geo_url: str = "https://restapi.amap.com/v3/geocode/geo"
